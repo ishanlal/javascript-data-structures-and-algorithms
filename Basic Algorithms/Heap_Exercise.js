@@ -1,11 +1,21 @@
 class Heap{
-  constructor(init_size){
+  constructor(init_size=10){
     this.cbt = Array(init_size).fill(null); // initialize array
-    this.next_index = 0 // next element goes here
+    this.next_index = 0; // next element goes here
   }
   size(){
     return this.next_index;
   }
+  is_empty(){
+    return this.size() == 0;
+  }
+  get_minimum(){
+    if(this.size() == 0){
+      return null;
+    }
+    return this.cbt[0];
+  }
+  /*
   _up_heapify(){
     let child_index = this.next_index;
     while (child_index >= 1){
@@ -29,8 +39,37 @@ class Heap{
     if (this.next_index >= this.cbt.length) {
       let temp = this.cbt;
       this.cbt = Array(2*this.cbt.length).fill(null);
-      for(let index = 0; i<this.next_index ;i++){
-        this.cbt[index] = temp[index];
+      for(let i = 0; i<this.next_index ;i++){
+        this.cbt[i] = temp[i];
+      }
+    }
+  }
+  */
+  insert(data){
+    // recursive solution
+    this.cbt[this.next_index] = data;
+    let parent = Math.floor((this.next_index)/2);
+    this.upHeap(parent, this.next_index);
+    this.next_index += 1;
+    if(this.next_index >= this.cbt.length){
+      let temp = this.cbt;
+      this.cbt = Array(2*this.cbt.length).fill(null);
+      for(let i = 0;i<this.next_index;i++){
+        this.cbt[i] = temp[i];
+      }
+    }
+  }
+  upHeap(parent, child){
+    if(child >= 1){
+      if(this.cbt[parent] > this.cbt[child]){
+        let temp = this.cbt[parent];
+        this.cbt[parent] = this.cbt[child];
+        this.cbt[child] = temp;
+        let up_parent = Math.floor((parent-1)/2);
+        let up_child = parent;
+        this.upHeap(up_parent, up_child);
+      } else {
+        return;
       }
     }
   }
@@ -38,8 +77,8 @@ class Heap{
     let parent_index = 0; // top node
     while(parent_index < this.next_index){
       // calculate left and right child indicies
-      let left_child_index = 2*parent_index + 1;
-      let right_child_index = 2*parent_index + 2;
+      let left_child_index = (2*parent_index) + 1;
+      let right_child_index = (2*parent_index) + 2;
       // extract parent element, set left and right elemnts to null, min element (parent)
       let parent_element = this.cbt[parent_index];
       let left_element = null;
@@ -55,11 +94,11 @@ class Heap{
       }
       // compare with left child, set min_ele
       if(left_element != null){
-        minimum_element = Math.min(left_element, parent_element);
+        minimum_element = Math.min(left_element, parent_element, minimum_element);
       }
       // compare with right child, set min_ele
       if(right_element != null){
-        minimum_element = Math.min(right_element, parent_element);
+        minimum_element = Math.min(right_element, parent_element, minimum_element);
       }
       // check if parent is rightly placed, if so return
       if(minimum_element == parent_element){
@@ -72,7 +111,7 @@ class Heap{
         parent_index = left_child_index;
       }
       // compare min_ele to right child and swap if equal
-      if(minimum_element == right_element){
+      else if(minimum_element == right_element){
         this.cbt[parent_index] = minimum_element;
         this.cbt[right_child_index] = parent_element;
         parent_index = right_child_index;
@@ -92,3 +131,23 @@ class Heap{
     return to_remove;
   }
 }
+
+let heap = new Heap(5);
+let elements = [1, 2, 3, 4, 1, 2];
+for (let ele of elements){
+  heap.insert(ele);
+}
+console.log(heap.cbt);
+console.log('Inserted elements: ', elements);
+console.log('size: ', heap.size());;
+console.log('Calling remove...', heap.remove());
+//console.log(heap.cbt);
+console.log('Calling remove...', heap.remove());
+console.log('Calling remove...', heap.remove());
+console.log('Calling remove...', heap.remove());
+console.log('minimum: ', heap.get_minimum());
+console.log('Calling remove...', heap.remove());
+console.log('Calling remove...', heap.remove());
+console.log('size: ', heap.size());
+console.log('Calling remove...', heap.remove());
+console.log(heap.is_empty());
