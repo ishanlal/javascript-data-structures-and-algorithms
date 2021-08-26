@@ -26,6 +26,7 @@ function is_word(word){
   let current_node = basic_trie;
   for (let char of word){
     let trie_array = Object.keys(current_node);
+    console.log(trie_array);
     if(!trie_array.includes(char)){
       return false
     }
@@ -69,6 +70,7 @@ class Trie{
     let current_node = this.root;
     for (let char of word){
       let trie_array = Object.keys(current_node.children);
+      console.log(trie_array);
       if(!trie_array.includes(char)){
         return false;
       }
