@@ -1,6 +1,5 @@
 // Efficency: O(n^2)
 // Space: O(1)
-
 const ld = require('lodash');
 function bubble_sort_1(arr){
   for (let i = 0 ; i<arr.length ; i++){
@@ -18,6 +17,9 @@ function bubble_sort_1(arr){
 let wakeup_times = [16,49,3,12,56,49,55,22,13,46,19,55,46,13,25,56,9,48,45];
 bubble_sort_1(wakeup_times);
 console.log(wakeup_times[0] == 3);
+
+
+
 function bubble_sort_2(arr){
   for (let i = 0 ; i<arr.length ; i++){
     for(let j = 1 ; j<arr.length ; j++){

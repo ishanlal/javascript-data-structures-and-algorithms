@@ -139,7 +139,7 @@ for (let ele of elements){
 }
 console.log(heap.cbt);
 console.log('Inserted elements: ', elements);
-console.log('size: ', heap.size());;
+console.log('size: ', heap.size());
 console.log('Calling remove...', heap.remove());
 //console.log(heap.cbt);
 console.log('Calling remove...', heap.remove());

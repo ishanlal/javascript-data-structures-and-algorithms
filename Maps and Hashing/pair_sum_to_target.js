@@ -8,7 +8,22 @@ function pair_sum_to_target(input_list, target){
   }
   return [-1,-1];
 }
+function test_function(test_case){
+  let output = pair_sum_to_target(test_case[0], test_case[1]);
+  console.log(output);
+  if ( output.sort().every((val, index)=>val==test_case[2][index]) ){
+    console.log('Pass');
+  }
+  else{
+    console.log('Fail');
+  }
+}
 
-console.log(pair_sum_to_target([1, 5, 9, 7], 8)); // [0,3]
-console.log(pair_sum_to_target([10, 5, 9, 8, 12, 1, 16, 6], 16)); // [0,7]
-console.log(pair_sum_to_target([0, 1, 2, 3, -4], -4)); // [0,4]
+const _ = require('lodash');
+
+let test_case_1 = [[1,5,9,7],8,[0,3]];
+test_function(test_case_1);
+let test_case_2 = [[10,5,9,8,12,1,16,6], 16, [0,7]];
+test_function(test_case_2);
+let test_case_3 = [[0,1,2,3,-4], -4, [0,4]];
+test_function(test_case_3);
